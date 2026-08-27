@@ -9,8 +9,8 @@
 /* O seletor universal (*) afeta TODOS os elementos da página. 
    Zeramos as margens e preenchimentos padrão do navegador para termos controle total. */
    *{
-    margin: 5px;
-    padding: 0px;
+    margin: 10px;
+    padding: 5px;
     box-sizing: border-box;/*Garante que borads e paddings não estulpem a largura das ciaxas*/
     font-family: 'Roboto', sans-serif;/*Fonte padrão para os textos*/
    }

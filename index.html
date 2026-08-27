@@ -4,26 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>T-Sistemas | Automação & Segurança</title>
+    
     <!-- Link para o arquivo de estilos CSS -->
     <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts: Importando as fontes Montserrat e Roboto -->
+    
+    <!-- Google Fonts: Importando Montserrat e Roboto -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    <!-- FontAwesome: Biblioteca de ícones (câmeras, whatsapp, fone, envelope) -->
+    
+    <!-- FontAwesome: Biblioteca de ícones oficiais -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-  
+    <!-- ==========================================================
+       1. BOTÃO FLUTUANTE DO WHATSAPP (Apenas um, fixo e elegante)
+       ========================================================== -->
+    <a href="https://wa.me/5547991985274?text=Olá,%20vi%20o%20site%20da%20T%20Sistemas%20e%20gostaria%20de%20um%20orçamento." target="_blank" class="whatsapp-float" aria-label="Fale conosco no WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
-    <!-- CABEÇALHO DE NAVEGAÇÃO RÁPIDA (Navbar fixa no topo) -->
+    <!-- ==========================================================
+       2. CABEÇALHO DE NAVEGAÇÃO RÁPIDA (Navbar fixa no topo)
+       ========================================================== -->
     <header class="header">
         <div class="container header-flex">
-            <!-- Informações da marca -->
+            <!-- Logotipo e Subtítulo -->
             <div class="brand-info">
                 <span class="brand-title">T Sistemas</span>
                 <span class="brand-subtitle">Automação & Segurança</span>
             </div>
-            <!-- Menu de links internos -->
+            <!-- Menu de Links -->
             <nav class="nav">
                 <a href="#banner-principal">Início</a>
                 <a href="#servicos">Serviços</a>
@@ -32,88 +42,111 @@
         </div>
     </header>
 
-    <!-- BANNER PRINCIPAL (A imagem do panfleto em destaque) -->
+    <!-- ==========================================================
+       3. BANNER PRINCIPAL (Apresentação visual)
+       ========================================================== -->
     <section id="banner-principal" class="banner-section">
-        <div>
+        <div class="container">
             <img src="foto1.jpg" alt="T Sistemas - Proteção e Tecnologia para sua tranquilidade" class="main-banner-img">
-        </div>
-        <!-- Barra de chamada para ação rápida -->
-        <div class="banner-cta-bar">
-            <div class="container banner-cta-bar-flex">
-                
-               
-                </a>
-            </div>
         </div>
     </section>
 
-    <!-- SEÇÃO DE SERVIÇOS DETALHADOS (Tudo o que estava no panfleto organizado em cards) -->
+    <!-- ==========================================================
+       4. SEÇÃO DE SOLUÇÕES E SERVIÇOS (Cards com Vídeos e Fotos)
+       ========================================================== -->
     <section id="servicos" class="services container">
-        <p>Precisa de um projeto de segurança completo?</p>
-         <a href="https://wa.me/5547991985274?text=Olá,%20vi%20o%20site%20e%20gostaria%20de%20um%20orçamento." target="_blank" class="btn-whatsapp-banner">
-                    <i class="fab fa-whatsapp"></i> Chamar no WhatsApp (47) 99198-5274
-        <h2>Nossas Soluções</h2>
-        <p class="section-desc">Proteção e tecnologia para sua tranquilidade em residências ou empresas.</p>
+        <div class="services-header-box">
+            <h2>Nossas Soluções</h2>
+            <p class="section-desc">Proteção e tecnologia de ponta para garantir a tranquilidade da sua residência ou empresa.</p>
+        </div>
         
         <div class="services-grid">
             
-            <!-- CARD 1: VÍDEO INTERATIVO -->
+            <!-- CARD 1: VÍDEO INTERATIVO DE DEMONSTRAÇÃO -->
             <div class="services-card video-card-wrapper">
-                <div class="video-container">
-                    <video controls width="100%">
+                <div class="media-container">
+                    <video controls width="100%" poster="foto1.jpg">
                         <source src="video1.mp4" type="video/mp4">
                         Seu navegador não suporta a tag de vídeo.
                     </video>
                 </div>
-                <div class="video-card-content">
+                <div class="card-content">
                     <h3>Demonstração Prática</h3>
-                    <p>Clique no play para assistir ao funcionamento dos nossos sistemas.</p>
+                    <p>Assista ao vídeo e veja o funcionamento real dos nossos sistemas instalados.</p>
                 </div>
             </div>
 
-            <!-- CARD 2: CÂMERAS -->
+            <!-- CARD 2: CÂMERAS DE MONITORAMENTO (Com foto ilustrativa) -->
             <div class="services-card">
-                <div class="service-icon"><i class="fas fa-video"></i></div>
-                <h3>Câmeras de Monitoramento</h3>
-                <p>Imagens em tempo real com alta qualidade para vigilância residencial e comercial.</p>
+                <div class="media-container">
+                    <!-- Substitua 'camera.jpg' pela foto real do serviço se tiver -->
+                    <img src="foto1.jpg" alt="Câmeras de Monitoramento" class="card-media">
+                </div>
+                <div class="card-content">
+                    <div class="service-icon"><i class="fas fa-video"></i></div>
+                    <h3>Câmeras de Monitoramento</h3>
+                    <p>Imagens em tempo real com alta definição para vigilância residencial e comercial completa.</p>
+                </div>
             </div>
 
-            <!-- CARD 3: INTERFONE -->
+            <!-- CARD 3: INTERFONE E VÍDEO PORTEIRO -->
             <div class="services-card">
-                <div class="service-icon"><i class="fas fa-phone-alt"></i></div>
-                <h3>Interfone e Vídeo Porteiro</h3>
-                <p>Mais praticidade e segurança no seu dia a dia ao atender visitas com controle total.</p>
+                <div class="media-container">
+                    <img src="foto1.jpg" alt="Interfone e Vídeo Porteiro" class="card-media">
+                </div>
+                <div class="card-content">
+                    <div class="service-icon"><i class="fas fa-phone-alt"></i></div>
+                    <h3>Interfone e Vídeo Porteiro</h3>
+                    <p>Praticidade e segurança total no dia a dia ao identificar e atender suas visitas com facilidade.</p>
+                </div>
             </div>
 
-            <!-- CARD 4: PORTÕES -->
+            <!-- CARD 4: PORTÕES ELETRÔNICOS -->
             <div class="services-card">
-                <div class="service-icon"><i class="fas fa-warehouse"></i></div>
-                <h3>Portões Eletrônicos</h3>
-                <p>Automação eficiente, conforto e robustez para portões basculantes e deslizantes.</p>
+                <div class="media-container">
+                    <img src="foto1.jpg" alt="Portões Eletrônicos" class="card-media">
+                </div>
+                <div class="card-content">
+                    <div class="service-icon"><i class="fas fa-warehouse"></i></div>
+                    <h3>Portões Eletrônicos</h3>
+                    <p>Automação eficiente, robustez e conforto para portões basculantes, pivotantes e deslizantes.</p>
+                </div>
             </div>
 
             <!-- CARD 5: CERCA ELÉTRICA -->
             <div class="services-card">
-                <div class="service-icon"><i class="fas fa-bolt"></i></div>
-                <h3>Cerca Elétrica</h3>
-                <p>Proteção perimetral altamente ostensiva para blindar seu imóvel contra invasões.</p>
+                <div class="media-container">
+                    <img src="foto1.jpg" alt="Cerca Elétrica" class="card-media">
+                </div>
+                <div class="card-content">
+                    <div class="service-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>Cerca Elétrica</h3>
+                    <p>Proteção perimetral altamente ostensiva desenvolvida para blindar o seu imóvel contra invasões.</p>
+                </div>
             </div>
 
             <!-- CARD 6: ALARMES -->
             <div class="services-card">
-                <div class="service-icon"><i class="fas fa-bell"></i></div>
-                <h3>Alarmes</h3>
-                <p>Sistemas inteligentes de detecção de intrusão com resposta rápida.</p>
+                <div class="media-container">
+                    <img src="foto1.jpg" alt="Alarmes" class="card-media">
+                </div>
+                <div class="card-content">
+                    <div class="service-icon"><i class="fas fa-bell"></i></div>
+                    <h3>Alarmes Inteligentes</h3>
+                    <p>Sistemas modernos de detecção de intrusão equipados com resposta rápida e monitoramento.</p>
+                </div>
             </div>
 
         </div>
     </section>
 
-    <!-- SEÇÃO DE CONTATO E ORÇAMENTO (Trazendo o telefone e email do rodapé do panfleto) -->
+    <!-- ==========================================================
+       5. SEÇÃO DE CONTATO E ORÇAMENTO
+       ========================================================== -->
     <section id="contato" class="contact-section">
         <div class="container">
             <h2>Solicite um Orçamento</h2>
-            <p class="section-subtitle">Assistência técnica com qualidade que você pode confiar! Fale direto pelo WhatsApp <strong>(47) 99198-5274</strong> ou preencha abaixo:</p>
+            <p class="section-subtitle">Assistência técnica com qualidade que você pode confiar! Preencha o formulário abaixo:</p>
             
             <form id="contactForm" class="contact-form">
                 <div class="form-group">
@@ -132,11 +165,8 @@
                     Enviar Mensagem via WhatsApp
                 </button>
             </form>
-  <!-- BOTÃO FLUTUANTE DO WHATSAPP (Fica fixo no canto da tela) -->
-    <a href="https://wa.me/5547991985274?text=Olá,%20vi%20o%20site%20da%20T%20Sistemas%20e%20gostaria%20de%20um%20orçamento." target="_blank" class="whatsapp-float">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-            <!-- Informações de contato direto extraídas do panfleto -->
+
+            <!-- Informações de Contato Direto -->
             <div class="contact-direct-info">
                 <p><i class="fas fa-envelope"></i> atmnbusistemas@gmail.com</p>
                 <p><i class="fab fa-whatsapp"></i> (47) 99198-5274</p>

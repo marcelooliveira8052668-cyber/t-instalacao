@@ -102,12 +102,42 @@ body {
 /* ==========================================================
    4. BANNER PRINCIPAL E BARRA DE CTA
    ================================================---------- */
+/* ==========================================================
+   AJUSTE FINO DO BANNER E RESPONSIVIDADE
+   ========================================================== */
 
-/* A seção que segura o banner inteiro */
 .banner-section {
-    background-color: var(--primary-color); /* Fundo azul caso a imagem demore a carregar */
+    background-color: var(--primary-color);
     width: 100%;
+    padding: 20px 0;
     display: flex;
-    flex-direction: column; /* Empilha a imagem em cima e a barra de WhatsApp embaixo */
+    flex-direction: column;
     align-items: center;
+    gap: 15px; /* Cria um espaço limpo entre a imagem e a barra do WhatsApp */
+}
+
+/* Garante que a imagem do banner se adapte perfeitamente à tela do celular */
+.main-banner-img {
+    width: 100%;
+    max-width: 900px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+}
+
+/* Ajuste da barra de CTA do banner para telas menores */
+.banner-cta-bar {
+    background-color: var(--secondary-color);
+    width: 100%;
+    padding: 15px;
+}
+
+.banner-cta-bar-flex {
+    display: flex;
+    flex-direction: column; /* No celular, joga o texto em cima e o botão embaixo */
+    align-items: center;
+    text-align: center;
+    gap: 10px;
 }

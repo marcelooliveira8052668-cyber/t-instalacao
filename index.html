@@ -1,98 +1,146 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>T-Sistemas | Automação & Segurança</title>
-    <link rel="stylesheet" href="style.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Roboto:wght@300;400;500&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-  </head>
-  <body>
-    <!--Botão flutuante do Whatsapp-->
-    <a href="https://wa.me/5547..." target="-blank" class="whatsapp-float">
-      <i class="fab fa-whatsapp"></i>
+    <!-- Link para o arquivo de estilos CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts: Importando as fontes Montserrat e Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- FontAwesome: Biblioteca de ícones (câmeras, whatsapp, fone, envelope) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- BOTÃO FLUTUANTE DO WHATSAPP (Fica fixo no canto da tela) -->
+    <a href="https://wa.me/5547991985274?text=Olá,%20vi%20o%20site%20da%20T%20Sistemas%20e%20gostaria%20de%20um%20orçamento." target="_blank" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
     </a>
-    <!--cabeçalho de Navegação Rapida-->
+
+    <!-- CABEÇALHO DE NAVEGAÇÃO RÁPIDA (Navbar fixa no topo) -->
     <header class="header">
-      <div class="container header-flex">
-        <div class="brand-info">
-          <span class="brand-title">T Sistemas</span>
-          <span class="brand-subtitle">Automação & Segurança</span>
+        <div class="container header-flex">
+            <!-- Informações da marca -->
+            <div class="brand-info">
+                <span class="brand-title">T Sistemas</span>
+                <span class="brand-subtitle">Automação & Segurança</span>
+            </div>
+            <!-- Menu de links internos -->
+            <nav class="nav">
+                <a href="#banner-principal">Início</a>
+                <a href="#servicos">Serviços</a>
+                <a href="#contato" class="btn-nav">Orçamento</a>
+            </nav>
         </div>
-        <nav class="nav">
-          <a href="#banner-principal">Início</a>
-          <a href="#servicos">Serviços</a>
-          <a href="#contato" class="btn-nav">Orçamento</a>
-        </nav>
-      </div>
     </header>
-    <!--Banner principal-->
+
+    <!-- BANNER PRINCIPAL (A imagem do panfleto em destaque) -->
     <section id="banner-principal" class="banner-section">
-      <div>
-        <img
-          src="foto1.jpg"
-          height="500"
-          alt="T Sistemas..."
-          class="main-banner-img"
-        />
-      </div>
-      <div class="banner-cta-bar">
-        <div class="container banner-cta-bar-flex">
-          <p>Precisa de um projeto de segurança completo</p>
-          <a
-            href="https://wa.me/5547..."
-            target="-blank"
-            class="btn-whatsapp-banner"
-          >
-            <i class="fab fa-whatsapp"></i>Chamar no Whatsapp (47) 99198-5274
-          </a>
+        <div>
+            <img src="foto1.jpg" alt="T Sistemas - Proteção e Tecnologia para sua tranquilidade" class="main-banner-img">
         </div>
-      </div>
+        <!-- Barra de chamada para ação rápida -->
+        <div class="banner-cta-bar">
+            <div class="container banner-cta-bar-flex">
+                <p>Precisa de um projeto de segurança completo?</p>
+                <a href="https://wa.me/5547991985274?text=Olá,%20vi%20o%20site%20e%20gostaria%20de%20um%20orçamento." target="_blank" class="btn-whatsapp-banner">
+                    <i class="fab fa-whatsapp"></i> Chamar no WhatsApp (47) 99198-5274
+                </a>
+            </div>
+        </div>
     </section>
-    <!--Seção de Serviços Detalhados e video-->
+
+    <!-- SEÇÃO DE SERVIÇOS DETALHADOS (Tudo o que estava no panfleto organizado em cards) -->
     <section id="servicos" class="services container">
-      <h2>Nossas Soluções</h2>
-      <div class="services-grid">
-        <!--Novo card de video interativo-->
-        <div class="services-card video-card-wrapper">
-          <div class="video-container">
-            <video controls width="100%">
-              <source src="video1.mp4" type="video/mp4" />
-              Seu navegador não suporta a tag de video.
-            </video>
-          </div>
-          <div class="video-card-content">
-            <h3>Demonstração Prática</h3>
-            <p>Clique no play para assistir ao funcionamento...</p>
-          </div>
+        <h2>Nossas Soluções</h2>
+        <p class="section-desc">Proteção e tecnologia para sua tranquilidade em residências ou empresas.</p>
+        
+        <div class="services-grid">
+            
+            <!-- CARD 1: VÍDEO INTERATIVO -->
+            <div class="services-card video-card-wrapper">
+                <div class="video-container">
+                    <video controls width="100%">
+                        <source src="video1.mp4" type="video/mp4">
+                        Seu navegador não suporta a tag de vídeo.
+                    </video>
+                </div>
+                <div class="video-card-content">
+                    <h3>Demonstração Prática</h3>
+                    <p>Clique no play para assistir ao funcionamento dos nossos sistemas.</p>
+                </div>
+            </div>
+
+            <!-- CARD 2: CÂMERAS -->
+            <div class="services-card">
+                <div class="service-icon"><i class="fas fa-video"></i></div>
+                <h3>Câmeras de Monitoramento</h3>
+                <p>Imagens em tempo real com alta qualidade para vigilância residencial e comercial.</p>
+            </div>
+
+            <!-- CARD 3: INTERFONE -->
+            <div class="services-card">
+                <div class="service-icon"><i class="fas fa-phone-alt"></i></div>
+                <h3>Interfone e Vídeo Porteiro</h3>
+                <p>Mais praticidade e segurança no seu dia a dia ao atender visitas com controle total.</p>
+            </div>
+
+            <!-- CARD 4: PORTÕES -->
+            <div class="services-card">
+                <div class="service-icon"><i class="fas fa-warehouse"></i></div>
+                <h3>Portões Eletrônicos</h3>
+                <p>Automação eficiente, conforto e robustez para portões basculantes e deslizantes.</p>
+            </div>
+
+            <!-- CARD 5: CERCA ELÉTRICA -->
+            <div class="services-card">
+                <div class="service-icon"><i class="fas fa-bolt"></i></div>
+                <h3>Cerca Elétrica</h3>
+                <p>Proteção perimetral altamente ostensiva para blindar seu imóvel contra invasões.</p>
+            </div>
+
+            <!-- CARD 6: ALARMES -->
+            <div class="services-card">
+                <div class="service-icon"><i class="fas fa-bell"></i></div>
+                <h3>Alarmes</h3>
+                <p>Sistemas inteligentes de detecção de intrusão com resposta rápida.</p>
+            </div>
+
         </div>
-      </div>
     </section>
+
+    <!-- SEÇÃO DE CONTATO E ORÇAMENTO (Trazendo o telefone e email do rodapé do panfleto) -->
     <section id="contato" class="contact-section">
-      <div class="container">
-        <h2>Solicite um Orçamento</h2>
-        <form id="contractForm" class="contact-form">
-          <div class="form-group">
-            <label for="name">Seu Nome</label>
-            <input
-              type="text"
-              id="name"
-              required
-              placeholder="Digite seu nome"
-            />
-          </div>
-          <button type="submit" class="btn-primary full-width">
-            Enviar Mensagem via Whatsapp
-          </button>
-        </form>
-      </div>
+        <div class="container">
+            <h2>Solicite um Orçamento</h2>
+            <p class="section-subtitle">Assistência técnica com qualidade que você pode confiar! Fale direto pelo WhatsApp <strong>(47) 99198-5274</strong> ou preencha abaixo:</p>
+            
+            <form id="contactForm" class="contact-form">
+                <div class="form-group">
+                    <label for="name">Seu Nome</label>
+                    <input type="text" id="name" required placeholder="Digite seu nome">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Telefone / WhatsApp</label>
+                    <input type="tel" id="phone" required placeholder="(47) 99999-9999">
+                </div>
+                <div class="form-group">
+                    <label for="message">Mensagem / Bairro / Serviço Desejado</label>
+                    <textarea id="message" rows="4" placeholder="Descreva o que você precisa..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary full-width">
+                    Enviar Mensagem via WhatsApp
+                </button>
+            </form>
+
+            <!-- Informações de contato direto extraídas do panfleto -->
+            <div class="contact-direct-info">
+                <p><i class="fas fa-envelope"></i> atmnbusistemas@gmail.com</p>
+                <p><i class="fab fa-whatsapp"></i> (47) 99198-5274</p>
+            </div>
+        </div>
     </section>
-  </body>
+
+</body>
 </html>

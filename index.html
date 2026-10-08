@@ -3,108 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T-Sistemas | Automação & Segurança</title>
-    
-    <!-- Link para o arquivo de estilos CSS -->
+    <title>T Sistemas | Automação e Segurança em Blumenau e Região</title>
+    <meta name="description" content="T Sistemas: câmeras de monitoramento, alarmes, portões eletrônicos, cercas elétricas e interfones. Instalação profissional em Blumenau e região. Solicite seu orçamento pelo WhatsApp.">
+
+    <!-- Favicon inline (escudo da marca) -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230056b3' d='M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5l8-3z'/%3E%3Cpath fill='%23ffffff' d='M12.7 7.3l-3.5 3.5 1.4 1.4 2.1-2.1 2.1 2.1 1.4-1.4z'/%3E%3C/svg%3E">
+
+    <!-- Estilos -->
     <link rel="stylesheet" href="style.css">
-    
-    <!-- Google Fonts: Importando Montserrat e Roboto -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    
-    <!-- FontAwesome: Biblioteca de ícones oficiais -->
+
+    <!-- Google Fonts: Montserrat (títulos) e Roboto (texto) -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome: ícones oficiais -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
     <!-- ==========================================================
-       1. CABEÇALHO DE NAVEGAÇÃO RÁPIDA (Navbar fixa no topo)
+       1. CABEÇALHO (navbar fixa com menu mobile)
        ========================================================== -->
-    <header class="header">
+    <header class="header" id="header">
         <div class="container header-flex">
-            <!-- Logotipo e Subtítulo -->
-            <div class="brand-info">
-                <span class="brand-title">T Sistemas</span>
-                <span class="brand-subtitle">Automação & Segurança</span>
-            </div>
-            <!-- Menu de Links -->
-            <nav class="nav">
-                <a href="#banner-principal">Início</a>
+            <a href="#inicio" class="brand">
+                <div class="brand-icon">
+                    <i class="fas fa-shield-halved"></i>
+                </div>
+                <div class="brand-info">
+                    <span class="brand-title">T Sistemas</span>
+                    <span class="brand-subtitle">Automação &amp; Segurança</span>
+                </div>
+            </a>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="navMenu">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <nav class="nav" id="navMenu">
+                <a href="#inicio">Início</a>
                 <a href="#servicos">Serviços</a>
+                <a href="#sobre">Por que nós</a>
                 <a href="#contato" class="btn-nav">Orçamento</a>
             </nav>
         </div>
     </header>
 
     <!-- ==========================================================
-       2. BANNER PRINCIPAL (Apresentação visual)
+       2. HERO / BANNER PRINCIPAL (foto local + texto + CTA)
        ========================================================== -->
-    <section id="banner-principal" class="banner-section">
-        <div class="container">
-            <img src="foto1.jpg" alt="T Sistemas - Proteção e Tecnologia para sua tranquilidade" class="main-banner-img">
+    <section id="inicio" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <span class="hero-eyebrow">Automação &amp; Segurança Eletrônica</span>
+            <h1>Proteção e tranquilidade para a sua casa ou empresa</h1>
+            <p>Câmeras, alarmes, portões, cercas e interfones com instalação profissional e suporte local.</p>
+
+            <div class="hero-cta">
+                <a href="https://wa.me/5547991985274?text=Ol%C3%A1%2C%20vi%20o%20site%20da%20T%20Sistemas%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" class="btn btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> Solicitar Orçamento
+                </a>
+                <a href="#servicos" class="btn btn-outline">Ver Serviços</a>
+            </div>
+
+            <div class="hero-badges">
+                <div class="badge"><i class="fas fa-file-invoice"></i> Orçamento sem compromisso</div>
+                <div class="badge"><i class="fas fa-headset"></i> Atendimento rápido</div>
+                <div class="badge"><i class="fas fa-map-marker-alt"></i> Blumenau e região</div>
+            </div>
         </div>
     </section>
 
     <!-- ==========================================================
-       3. SEÇÃO DE SOLUÇÕES E SERVIÇOS (Cards Clicáveis com Fotos e Vídeos)
+       3. SEÇÃO DE SOLUÇÕES E SERVIÇOS
        ========================================================== -->
     <section id="servicos" class="services container">
-        <div class="services-header-box">
+        <div class="services-header-box reveal">
+            <span class="section-eyebrow">O que fazemos</span>
             <h2>Nossas Soluções</h2>
-            <p class="section-desc">Proteção e tecnologia de ponta para garantir a tranquilidade da sua residência ou empresa. Clique em qualquer serviço para pedir orçamento direto no WhatsApp!</p>
+            <p class="section-desc">Clique em um serviço e fale direto com a gente pelo WhatsApp. Atendimento rápido, orçamento sem compromisso e instalação com garantia.</p>
         </div>
-        
+
         <div class="services-grid">
-            
-            <!-- CARD 1: VÍDEO INTERATIVO DE DEMONSTRAÇÃO -->
-            <div class="services-card">
+
+            <!-- CARD 1: VÍDEO DE DEMONSTRAÇÃO -->
+            <div class="services-card reveal">
                 <div class="media-container video-wrapper">
-                    <video controls width="100%" poster="foto1.jpg">
+                    <video controls poster="foto1.jpg">
                         <source src="video1.mp4" type="video/mp4">
                         Seu navegador não suporta a tag de vídeo.
                     </video>
                 </div>
                 <div class="card-content">
+                    <div class="service-icon"><i class="fas fa-play-circle"></i></div>
                     <h3>Demonstração Prática</h3>
                     <p>Assista ao vídeo e veja o funcionamento real dos nossos sistemas instalados.</p>
-                    <a href="https://wa.me/5547991985274?text=Olá,%20vi%20o%20vídeo%20demonstrativo%20no%20site%20da%20T%20Sistemas%20e%20quero%20um%20orçamento." target="_blank" class="card-btn-action">
+                    <a href="https://wa.me/5547991985274?text=Ol%C3%A1%2C%20vi%20o%20v%C3%ADdeo%20demonstrativo%20no%20site%20da%20T%20Sistemas%20e%20quero%20um%20or%C3%A7amento." target="_blank" class="card-btn-action">
                         <i class="fab fa-whatsapp"></i> Solicitar Orçamento
                     </a>
                 </div>
             </div>
 
-            <!-- CARD 2: CÂMERAS DE MONITORAMENTO -->
-            <a href="https://wa.me/5547991985274?text=Olá,%20tenho%20interesse%20em%20Câmeras%20de%20Monitoramento." target="_blank" class="services-card clickable-card">
-                <div class="media-container">
-                    <img src="foto2.jpg" alt="Câmeras de Monitoramento" class="card-media">
+            <!-- CARD 2: CÂMERAS -->
+            <a href="https://wa.me/5547991985274?text=Ol%C3%A1%2C%20tenho%20interesse%20em%20C%C3%A2meras%20de%20Monitoramento." target="_blank" class="services-card clickable-card reveal">
+                <div class="media-panel">
+                    <i class="fas fa-video"></i>
                 </div>
                 <div class="card-content">
-                    <div class="service-icon"><i class="fas fa-video"></i></div>
                     <h3>Câmeras de Monitoramento</h3>
-                    <p>Imagens em tempo real com alta definição para vigilância residencial e comercial completa.</p>
+                    <p>Imagens em tempo real em alta definição para vigilância residencial e comercial, com acesso pelo celular.</p>
                     <span class="card-link-text">Falar sobre este serviço <i class="fas fa-arrow-right"></i></span>
                 </div>
             </a>
 
             <!-- CARD 3: INTERFONE E VÍDEO PORTEIRO -->
-            <a href="https://wa.me/5547991985274?text=Olá,%20tenho%20interesse%20em%20Interfone%20e%20Vídeo%20Porteiro." target="_blank" class="services-card clickable-card">
-                <div class="media-container">
-                    <img src="https://th.bing.com/th/id/OIP.206Ju8Usu6LQDEG_0fMomgHaHa?w=213&h=213&c=7&r=0&o=7&pid=1.7&rm=3" alt="Interfone e Vídeo Porteiro" class="card-media">
+            <a href="https://wa.me/5547991985274?text=Ol%C3%A1%2C%20tenho%20interesse%20em%20Interfone%20e%20V%C3%ADdeo%20Porteiro." target="_blank" class="services-card clickable-card reveal">
+                <div class="media-panel">
+                    <i class="fas fa-door-open"></i>
                 </div>
                 <div class="card-content">
-                    <div class="service-icon"><i class="fas fa-phone-alt"></i></div>
                     <h3>Interfone e Vídeo Porteiro</h3>
-                    <p>Praticidade e segurança total no dia a dia ao identificar e atender suas visitas com facilidade.</p>
+                    <p>Praticidade e segurança para identificar e atender suas visitas com facilidade, de qualquer lugar.</p>
                     <span class="card-link-text">Falar sobre este serviço <i class="fas fa-arrow-right"></i></span>
                 </div>
             </a>
 
             <!-- CARD 4: PORTÕES ELETRÔNICOS -->
-            <a href="https://wa.me/5547991985274?text=Olá,%20tenho%20interesse%20em%20Portões%20Eletrônicos." target="_blank" class="services-card clickable-card">
-                <div class="media-container">
-                    <img src="data:image/webp;base64,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" width="600" alt="Portões Eletrônicos" class="card-media">
+            <a href="https://wa.me/5547991985274?text=Ol%C3%A1%2C%20tenho%20interesse%20em%20Port%C3%B5es%20Eletr%C3%B4nicos." target="_blank" class="services-card clickable-card reveal">
+                <div class="media-panel">
+                    <i class="fas fa-warehouse"></i>
                 </div>
                 <div class="card-content">
-                    <div class="service-icon"><i class="fas fa-warehouse"></i></div>
                     <h3>Portões Eletrônicos</h3>
                     <p>Automação eficiente, robustez e conforto para portões basculantes, pivotantes e deslizantes.</p>
                     <span class="card-link-text">Falar sobre este serviço <i class="fas fa-arrow-right"></i></span>
@@ -112,27 +140,25 @@
             </a>
 
             <!-- CARD 5: CERCA ELÉTRICA -->
-            <a href="https://wa.me/5547991985274?text=Olá,%20tenho%20interesse%20em%20Cerca%20Elétrica." target="_blank" class="services-card clickable-card">
-                <div class="media-container">
-                    <img src="https://tse3.mm.bing.net/th/id/OIP.tIhrnCUwWhaVe3NO5M10uAHaF1?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" width="600" alt="Cerca Elétrica" class="card-media">
+            <a href="https://wa.me/5547991985274?text=Ol%C3%A1%2C%20tenho%20interesse%20em%20Cerca%20El%C3%A9trica." target="_blank" class="services-card clickable-card reveal">
+                <div class="media-panel">
+                    <i class="fas fa-bolt"></i>
                 </div>
                 <div class="card-content">
-                    <div class="service-icon"><i class="fas fa-bolt"></i></div>
                     <h3>Cerca Elétrica</h3>
-                    <p>Proteção perimetral altamente ostensiva desenvolvida para blindar o seu imóvel contra invasões.</p>
+                    <p>Proteção perimetral ostensiva e eficaz para blindar o seu imóvel contra invasões.</p>
                     <span class="card-link-text">Falar sobre este serviço <i class="fas fa-arrow-right"></i></span>
                 </div>
             </a>
 
             <!-- CARD 6: ALARMES -->
-            <a href="https://wa.me/5547991985274?text=Olá,%20tenho%20interesse%20em%20Alarmes%20Inteligentes." target="_blank" class="services-card clickable-card">
-                <div class="media-container">
-                    <img src="https://tse2.mm.bing.net/th/id/OIP.wI7CAxwiPDKcbEql5uth7AHaFW?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" width="600" alt="Alarmes" class="card-media">
+            <a href="https://wa.me/5547991985274?text=Ol%C3%A1%2C%20tenho%20interesse%20em%20Alarmes%20Inteligentes." target="_blank" class="services-card clickable-card reveal">
+                <div class="media-panel">
+                    <i class="fas fa-bell"></i>
                 </div>
                 <div class="card-content">
-                    <div class="service-icon"><i class="fas fa-bell"></i></div>
                     <h3>Alarmes Inteligentes</h3>
-                    <p>Sistemas modernos de detecção de intrusão equipados com resposta rápida e monitoramento.</p>
+                    <p>Sistemas modernos de detecção de intrusão, com resposta rápida e monitoramento.</p>
                     <span class="card-link-text">Falar sobre este serviço <i class="fas fa-arrow-right"></i></span>
                 </div>
             </a>
@@ -141,14 +167,48 @@
     </section>
 
     <!-- ==========================================================
-       4. SEÇÃO DE CONTATO E ORÇAMENTO
+       4. SEÇÃO "POR QUE NÓS" (foto local + diferenciais)
+       ========================================================== -->
+    <section id="sobre" class="about">
+        <div class="container about-grid">
+            <div class="about-img-wrap reveal">
+                <img src="foto2.jpg" alt="Instalação de sistema de segurança pela T Sistemas">
+                <div class="about-img-badge">
+                    <i class="fas fa-thumbs-up"></i>
+                    <span>Instalação<br>Profissional</span>
+                </div>
+            </div>
+            <div class="about-content reveal">
+                <span class="section-eyebrow">Quem somos</span>
+                <h2>Por que escolher a T Sistemas?</h2>
+                <p>Equipe especializada em instalações eletrônicas de segurança e automação, atendendo residências, comércios e indústrias da região com seriedade, pontualidade e preço justo.</p>
+
+                <ul class="checklist">
+                    <li><i class="fas fa-check-circle"></i> Instalação feita por técnicos qualificados</li>
+                    <li><i class="fas fa-check-circle"></i> Equipamentos com garantia e assistência técnica</li>
+                    <li><i class="fas fa-check-circle"></i> Orçamento rápido e sem compromisso</li>
+                    <li><i class="fas fa-check-circle"></i> Atendimento local, perto de você</li>
+                </ul>
+
+                <a href="#contato" class="btn btn-primary">
+                    Falar com um consultor <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================
+       5. SEÇÃO DE CONTATO E ORÇAMENTO
        ========================================================== -->
     <section id="contato" class="contact-section">
         <div class="container">
-            <h2>Solicite um Orçamento</h2>
-            <p class="section-subtitle">Assistência técnica com qualidade que você pode confiar! Preencha o formulário abaixo:</p>
-            
-            <form id="contactForm" class="contact-form">
+            <div class="reveal">
+                <span class="section-eyebrow">Fale conosco</span>
+                <h2>Solicite um Orçamento</h2>
+                <p class="section-subtitle">Preencha o formulário abaixo e envie direto pelo WhatsApp. Retornamos o mais rápido possível!</p>
+            </div>
+
+            <form id="contactForm" class="contact-form reveal" novalidate>
                 <div class="form-group">
                     <label for="name">Seu Nome</label>
                     <input type="text" id="name" required placeholder="Digite seu nome">
@@ -158,34 +218,124 @@
                     <input type="tel" id="phone" required placeholder="(47) 99999-9999">
                 </div>
                 <div class="form-group">
-                    <label for="message">Mensagem / Bairro / Serviço Desejado</label>
-                    <textarea id="message" rows="4" placeholder="Descreva o que você precisa..."></textarea>
+                    <label for="message">Serviço desejado / Bairro</label>
+                    <textarea id="message" rows="4" placeholder="Ex.: câmeras para minha casa no bairro ..."></textarea>
                 </div>
-                <button type="submit" class="btn-primary full-width">
-                    Enviar Mensagem via WhatsApp
+                <button type="submit" class="btn btn-whatsapp full-width">
+                    <i class="fab fa-whatsapp"></i> Enviar Mensagem via WhatsApp
                 </button>
+                <p class="form-note"><i class="fas fa-lock"></i> Seus dados são usados apenas para abrir o chat no WhatsApp.</p>
             </form>
 
-            <!-- Informações de Contato Direto -->
-            <div class="contact-direct-info">
-                <p><i class="fas fa-envelope"></i> atmnbusistemas@gmail.com</p>
-                <p><i class="fab fa-whatsapp"></i> (47) 99198-5274</p>
+            <div class="contact-direct-info reveal">
+                <a href="mailto:atmnbusistemas@gmail.com"><i class="fas fa-envelope"></i> atmnbusistemas@gmail.com</a>
+                <a href="https://wa.me/5547991985274" target="_blank"><i class="fab fa-whatsapp"></i> (47) 99198-5274</a>
             </div>
         </div>
     </section>
 
     <!-- ==========================================================
-       5. RODAPÉ COM O BOTÃO FLUTUANTE DE WHATSAPP NO FIM
+       6. RODAPÉ
        ========================================================== -->
     <footer class="footer-bottom">
         <div class="container footer-flex">
-            <p>&copy; 2026 T Sistemas - Todos os direitos reservados.</p>
-            <!-- Botão flutuante/destacado posicionado no fim do site -->
-            <a href="https://wa.me/5547991985274?text=Olá,%20vi%20o%20site%20da%20T%20Sistemas%20e%20gostaria%20de%20um%20orçamento." target="_blank" class="whatsapp-footer-btn" aria-label="Fale conosco no WhatsApp">
+            <div class="footer-brand">
+                <span class="brand-title">T Sistemas</span>
+                <span class="brand-subtitle">Automação &amp; Segurança</span>
+            </div>
+            <p class="footer-copy">&copy; <span id="year">2026</span> T Sistemas &mdash; Blumenau e região, SC. Todos os direitos reservados.</p>
+            <a href="https://wa.me/5547991985274?text=Ol%C3%A1%2C%20vi%20o%20site%20da%20T%20Sistemas%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" class="whatsapp-footer-btn" aria-label="Fale conosco no WhatsApp">
                 <i class="fab fa-whatsapp"></i> Falar pelo WhatsApp
             </a>
         </div>
     </footer>
+
+    <!-- Botão flutuante de WhatsApp (fixo no canto inferior direito) -->
+    <a href="https://wa.me/5547991985274?text=Ol%C3%A1%2C%20vi%20o%20site%20da%20T%20Sistemas%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" class="whatsapp-float" aria-label="Fale conosco no WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+        <span class="float-pulse"></span>
+    </a>
+
+    <!-- Botão voltar ao topo -->
+    <button id="backToTop" aria-label="Voltar ao topo">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- ==========================================================
+       SCRIPTS (menu mobile, formulário WhatsApp, animações)
+       ========================================================== -->
+    <script>
+        // ---- Menu mobile ----
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        menuToggle.addEventListener('click', function () {
+            const isOpen = navMenu.classList.toggle('active');
+            menuToggle.setAttribute('aria-expanded', isOpen);
+            menuToggle.querySelector('i').className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+        });
+
+        navMenu.querySelectorAll('a').forEach(function (link) {
+            link.addEventListener('click', function () {
+                navMenu.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+                menuToggle.querySelector('i').className = 'fas fa-bars';
+            });
+        });
+
+        // ---- Formulário -> abre o WhatsApp com a mensagem montada ----
+        const contactForm = document.getElementById('contactForm');
+
+        contactForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const nome = document.getElementById('name').value.trim();
+            const fone = document.getElementById('phone').value.trim();
+            const mensagem = document.getElementById('message').value.trim();
+
+            if (!nome || !fone) {
+                alert('Por favor, preencha seu nome e telefone para continuar.');
+                return;
+            }
+
+            const texto = 'Olá, vi o site da T Sistemas e gostaria de um orçamento.\n\n' +
+                          '*Nome:* ' + nome + '\n' +
+                          '*Telefone:* ' + fone + '\n' +
+                          '*Serviço/Bairro:* ' + (mensagem || '—');
+
+            window.open('https://wa.me/5547991985274?text=' + encodeURIComponent(texto), '_blank');
+            contactForm.reset();
+        });
+
+        // ---- Sombra no header, botão voltar ao topo e ano do rodapé ----
+        const header = document.getElementById('header');
+        const backToTop = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', function () {
+            header.classList.toggle('scrolled', window.scrollY > 10);
+            backToTop.classList.toggle('visible', window.scrollY > 400);
+        });
+
+        backToTop.addEventListener('click', function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // ---- Animações de aparecimento ao rolar a página ----
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll('.reveal').forEach(function (el) {
+            observer.observe(el);
+        });
+    </script>
 
 </body>
 </html>

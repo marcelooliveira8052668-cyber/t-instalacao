@@ -41,7 +41,8 @@
 
             <nav class="nav" id="navMenu">
                 <a href="#inicio">Início</a>
-                <a href="#servicos">Serviços</a>
+                <a href="#galeria-fotos">Trabalhos</a>
+                <a href="#galeria">Vídeos</a>
                 <a href="#sobre">Por que nós</a>
                 <a href="#contato" class="btn-nav">Orçamento</a>
             </nav>
@@ -51,7 +52,7 @@
     <!-- ==========================================================
        2. HERO / BANNER PRINCIPAL (foto local + texto + CTA)
        ========================================================== -->
-    <section id="inicio" class="hero">
+    <section id="inicio" class="hero" style="background-image: url('assets/images/hero-bg.jpg')">
         <div class="hero-overlay"></div>
         <div class="container hero-content">
             <span class="hero-eyebrow">Automação &amp; Segurança Eletrônica</span>
@@ -62,7 +63,7 @@
                 <a href="https://wa.me/5547991985274?text=Ol%C3%A1%2C%20vi%20o%20site%20da%20ATM-Sistemas%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" class="btn btn-whatsapp">
                     <i class="fab fa-whatsapp"></i> Solicitar Orçamento
                 </a>
-                <a href="#servicos" class="btn btn-outline">Ver Serviços</a>
+                <a href="#galeria-fotos" class="btn btn-outline">Ver Trabalhos</a>
             </div>
 
             <div class="hero-badges">
@@ -79,7 +80,7 @@
     <section id="sobre" class="about">
         <div class="container about-grid">
             <div class="about-img-wrap reveal">
-                <img src="foto2.jpg" alt="Instalação de sistema de segurança pela ATM-Sistemas">
+                <img src="assets/images/sobre-instalacao.jpg" alt="Instalação de sistema de segurança pela ATM-Sistemas">
                 <div class="about-img-badge">
                     <i class="fas fa-thumbs-up"></i>
                     <span>Instalação<br>Profissional</span>
@@ -105,7 +106,24 @@
     </section>
 
     <!-- ==========================================================
-       5. GALERIA DE VÍDEOS / DEMONSTRAÇÕES
+       5. GALERIA DE FOTOS - TRABALHOS REALIZADOS
+       ========================================================== -->
+    <section id="galeria-fotos" class="photo-gallery-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-eyebrow">Portfólio</span>
+                <h2>Nossos Trabalhos Recentes</h2>
+                <p class="section-desc">Confira algumas das instalações realizadas pela nossa equipe. Qualidade, organização e acabamento profissional em cada projeto.</p>
+            </div>
+
+            <div class="photo-gallery-grid" id="photoGalleryGrid">
+                <!-- Fotos serão inseridas via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================
+       6. GALERIA DE VÍDEOS / DEMONSTRAÇÕES
        ========================================================== -->
     <section id="galeria" class="gallery-section">
         <div class="container">
@@ -295,31 +313,130 @@
 
         document.getElementById('year').textContent = new Date().getFullYear();
 
+        // ---- Galeria de fotos ----
+        const galleryPhotos = [
+            { src: 'assets/images/galeria-01.jpg', alt: 'Instalação de câmeras de monitoramento', category: 'Câmeras' },
+            { src: 'assets/images/galeria-02.jpg', alt: 'Instalação de portão eletrônico', category: 'Portões' },
+            { src: 'assets/images/galeria-03.jpg', alt: 'Instalação de cerca elétrica', category: 'Cercas' },
+            { src: 'assets/images/galeria-04.jpg', alt: 'Sistema de alarme residencial', category: 'Alarmes' },
+            { src: 'assets/images/galeria-05.jpg', alt: 'Instalação de interfone', category: 'Interfones' },
+            { src: 'assets/images/galeria-06.jpg', alt: 'Monitoramento remoto via celular', category: 'Câmeras' },
+            { src: 'assets/images/galeria-07.jpg', alt: 'Portão deslizante automatizado', category: 'Portões' },
+            { src: 'assets/images/galeria-08.jpg', alt: 'Cerca elétrica com alarme', category: 'Cercas' },
+            { src: 'assets/images/galeria-09.jpg', alt: 'Central de alarme instalada', category: 'Alarmes' },
+            { src: 'assets/images/galeria-10.jpg', alt: 'Instalação completa de segurança', category: 'Completo' }
+        ];
+
+        const photoGalleryGrid = document.getElementById('photoGalleryGrid');
+        if (photoGalleryGrid) {
+            galleryPhotos.forEach(function (photo, index) {
+                const item = document.createElement('article');
+                item.className = 'photo-gallery-item reveal';
+                item.style.transitionDelay = (index * 80) + 'ms';
+                
+                item.innerHTML = '\
+                    <div class="photo-gallery-wrapper">\
+                        <img src="' + photo.src + '" alt="' + photo.alt + '" loading="lazy">\
+                        <div class="photo-gallery-overlay">\
+                            <span class="photo-category">' + photo.category + '</span>\
+                            <button type="button" class="photo-zoom-btn" aria-label="Ampliar imagem">\
+                                <i class="fas fa-search-plus"></i>\
+                            </button>\
+                        </div>\
+                    </div>';
+                photoGalleryGrid.appendChild(item);
+            });
+
+            // Lightbox simples para ampliar fotos
+            const lightbox = document.createElement('div');
+            lightbox.className = 'photo-lightbox';
+            lightbox.innerHTML = '\
+                <button class="lightbox-close" aria-label="Fechar"><i class="fas fa-times"></i></button>\
+                <button class="lightbox-prev" aria-label="Anterior"><i class="fas fa-chevron-left"></i></button>\
+                <img src="" alt="">\
+                <button class="lightbox-next" aria-label="Próxima"><i class="fas fa-chevron-right"></i></button>\
+                <div class="lightbox-caption"></div>';
+            document.body.appendChild(lightbox);
+
+            let currentPhotoIndex = 0;
+            const lightboxImg = lightbox.querySelector('img');
+            const lightboxCaption = lightbox.querySelector('.lightbox-caption');
+
+            function openLightbox(index) {
+                currentPhotoIndex = index;
+                const photo = galleryPhotos[index];
+                lightboxImg.src = photo.src;
+                lightboxImg.alt = photo.alt;
+                lightboxCaption.textContent = photo.alt + ' — ' + photo.category;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeLightbox() {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            function navigateLightbox(direction) {
+                currentPhotoIndex = (currentPhotoIndex + direction + galleryPhotos.length) % galleryPhotos.length;
+                openLightbox(currentPhotoIndex);
+            }
+
+            photoGalleryGrid.querySelectorAll('.photo-gallery-item').forEach(function (item, index) {
+                item.addEventListener('click', function () {
+                    openLightbox(index);
+                });
+            });
+
+            lightbox.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+            lightbox.querySelector('.lightbox-prev').addEventListener('click', function () { navigateLightbox(-1); });
+            lightbox.querySelector('.lightbox-next').addEventListener('click', function () { navigateLightbox(1); });
+            lightbox.addEventListener('click', function (e) {
+                if (e.target === lightbox) closeLightbox();
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (!lightbox.classList.contains('active')) return;
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') navigateLightbox(-1);
+                if (e.key === 'ArrowRight') navigateLightbox(1);
+            });
+
+        } // Fecha if (photoGalleryGrid)
+
         // ---- Galeria de vídeos ----
         const galleryVideos = [
             {
-                src: 'video1.mp4',
-                poster: 'poster-video1.jpg',
+                src: 'assets/videos/demo-instalacao.mp4',
+                poster: 'assets/posters/demo-instalacao.jpg',
                 title: 'Demonstração de Instalação',
-                desc: 'Instalação de portões',
+                desc: 'Visão geral de instalação completa de sistema de segurança.',
                 tag: 'Demonstração',
                 icon: 'fa-play-circle'
             },
             {
-                src: 'portao.mp4',
-                poster: 'poster-portao.jpg',
-                title: 'Instalação de Portões',
-                desc: 'Portão eletrônico deslizante com controle remoto e sensor.',
-                tag: 'Instalação',
+                src: 'assets/videos/portao-eletronico.mp4',
+                poster: 'assets/posters/portao-eletronico.jpg',
+                title: 'Instalação de Portão Eletrônico',
+                desc: 'Portão deslizante automatizado com controle remoto e sensor de segurança.',
+                tag: 'Portões',
                 icon: 'fa-warehouse'
             },
             {
-                src: 'portao.mp4',
-                poster: 'poster-portao.jpg',
-                title: 'Demonstração de Portão Eletrônico',
-                desc: 'Instalação de portão eletrônico deslizante com controle remoto e sensor.',
-                tag: 'Instalação',
-                icon: 'fa-warehouse'
+                src: 'assets/videos/cameras-monitoramento.mp4',
+                poster: 'assets/posters/demo-instalacao.jpg',
+                title: 'Sistema de Câmeras de Monitoramento',
+                desc: 'Instalação de câmeras HD com visão noturna e acesso remoto pelo celular.',
+                tag: 'Câmeras',
+                icon: 'fa-video'
+            },
+            {
+                src: 'assets/videos/cerca-alarme.mp4',
+                poster: 'assets/posters/cerca-alarme.jpg',
+                title: 'Cerca Elétrica com Alarme',
+                desc: 'Cerca eletrificada integrada ao sistema de alarme para proteção perimetral.',
+                tag: 'Cercas/Alarme',
+                icon: 'fa-shield-halved'
             }
         ];
 

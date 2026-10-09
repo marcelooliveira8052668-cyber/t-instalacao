@@ -1516,23 +1516,38 @@ h1, h2, h3 {
         align-items: center;
     }
 
-    /* Vídeos verticais: uma coluna, altura limitada para não
-       ocupar a tela inteira e empurrar o conteúdo para baixo */
+    /* Vídeos verticais: uma coluna e cartão mais compacto,
+       para o card inteiro caber na tela do celular */
     .gallery-grid {
         grid-template-columns: 1fr;
         gap: 20px;
     }
 
-    .gallery-video-wrapper {
-        max-width: 420px;
-        margin: 0 auto;
-        aspect-ratio: 9 / 16;
-    }
-
     .gallery-card {
-        max-width: 480px;
+        max-width: 420px;
         width: 100%;
         margin: 0 auto;
+    }
+
+    /* Largura derivada da altura desejada: mantém o 9/16 exato
+       (usar max-height isolado deformaria a caixa e cortaria o vídeo) */
+    .gallery-video-wrapper {
+        aspect-ratio: 9 / 16;
+        width: min(100%, calc(56vh * 9 / 16));
+        margin: 0 auto;
+    }
+
+    .gallery-content {
+        padding: 16px 18px;
+        gap: 8px;
+    }
+
+    .gallery-content h3 {
+        font-size: 1.05rem;
+    }
+
+    .gallery-content p {
+        font-size: 0.9rem;
     }
 
     .contact-grid {

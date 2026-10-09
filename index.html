@@ -122,6 +122,40 @@
     </section>
 
     <!-- ==========================================================
+       5b. VÍDEO DE DICA (conteúdo de terceiro, exibido por embed)
+       ========================================================== -->
+    <section id="dica" class="dica-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-eyebrow">Dica técnica</span>
+                <h2>Como instalar uma câmera Wi-Fi sem passar fio</h2>
+                <p class="section-desc">Vídeo educativo que mostra o passo a passo de instalação. Ajuda você a entender as opções antes de solicitar seu orçamento.</p>
+            </div>
+
+            <div class="dica-card reveal">
+                <div class="dica-video-box" id="dicaVideoBox">
+                    <button type="button" class="dica-play-btn" id="dicaPlayBtn" aria-label="Reproduzir vídeo: Como Instalei uma Câmera de Segurança Wifi Puxando Ponto de Tomada">
+                        <img src="https://i.ytimg.com/vi/2AZnrOvX0qg/maxresdefault.jpg" alt="Miniatura do vídeo sobre instalação de câmera de segurança Wi-Fi" loading="lazy">
+                        <span class="dica-play-icon" aria-hidden="true"><i class="fab fa-youtube"></i></span>
+                    </button>
+                </div>
+                <div class="dica-info">
+                    <h3>Como Instalei uma Câmera de Segurança Wifi Puxando Ponto de Tomada</h3>
+                    <p class="dica-credit">
+                        <i class="fab fa-youtube"></i>
+                        Canal <strong>@poressadica</strong> — vídeo de terceiro, exibido aqui pelo player oficial do YouTube.
+                        Todos os direitos pertencem ao autor original.
+                    </p>
+                    <p class="dica-cta">
+                        <i class="fas fa-hands-holding-circle"></i>
+                        Prefere instalação profissional com garantia? <a href="#contato">Solicite um orçamento</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================
        6. SEÇÃO DE CONTATO E ORÇAMENTO
        ========================================================== -->
     <section id="contato" class="contact-section">
@@ -295,6 +329,23 @@
 
         document.getElementById('year').textContent = new Date().getFullYear();
 
+        // ---- Vídeo de dica: só carrega o player do YouTube ao clicar ----
+        const dicaPlayBtn = document.getElementById('dicaPlayBtn');
+        const dicaVideoBox = document.getElementById('dicaVideoBox');
+        const YOUTUBE_ID = '2AZnrOvX0qg';
+
+        if (dicaPlayBtn && dicaVideoBox) {
+            dicaPlayBtn.addEventListener('click', function () {
+                const iframe = document.createElement('iframe');
+                iframe.src = 'https://www.youtube-nocookie.com/embed/' + YOUTUBE_ID + '?autoplay=1&rel=0';
+                iframe.title = 'Como Instalei uma Câmera de Segurança Wifi Puxando Ponto de Tomada';
+                iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+                iframe.allowFullscreen = true;
+                dicaVideoBox.innerHTML = '';
+                dicaVideoBox.appendChild(iframe);
+            });
+        }
+
         // ---- Galeria de vídeos ----
         const galleryVideos = [
             {
@@ -314,10 +365,11 @@
                 icon: 'fa-warehouse'
             },
             {
-                src: 'https://www.w3schools.com/html/mov_bbb.mp4',
+                src: 'https://www.youtube.com/embed/2AZnrOvX0qg',
+                type: 'youtube',
                 poster: 'foto1.jpg',
                 title: 'Instalação de Câmeras',
-                desc: 'Sistema de monitoramento HD com acesso remoto pelo celular. (Vídeo de teste)',
+                desc: 'Sistema de monitoramento HD com acesso remoto pelo celular.',
                 tag: 'Monitoramento',
                 icon: 'fa-video'
             },
@@ -337,21 +389,45 @@
                 const card = document.createElement('article');
                 card.className = 'gallery-card reveal';
                 card.style.transitionDelay = (index * 100) + 'ms';
-                card.innerHTML = '\
-                    <div class="gallery-video-wrapper">\
-                        <video preload="none" poster="' + video.poster + '" playsinline controls>\
-                            <source src="' + video.src + '" type="video/mp4">\
-                            Seu navegador não suporta a tag de vídeo.\
-                        </video>\
-                        <button type="button" class="gallery-overlay" aria-label="Reproduzir vídeo: ' + video.title + '">\
-                            <span class="gallery-play-btn">\
-                                <i class="fas fa-play"></i>\
-                            </span>\
-                        </button>\
-                        <p class="gallery-video-error" hidden>\
-                            <i class="fas fa-triangle-exclamation"></i> Não foi possível carregar este vídeo.\
-                        </p>\
-                    </div>\
+
+                // Suporte para YouTube iframe ou vídeo local
+                let mediaHTML = '';
+                if (video.type === 'youtube') {
+                    mediaHTML = '\
+                        <div class="gallery-video-wrapper youtube-wrapper">\
+                            <iframe\
+                                src="' + video.src + '"\
+                                title="' + video.title + '"\
+                                frameborder="0"\
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"\
+                                allowfullscreen\
+                                loading="lazy">\
+                            </iframe>\
+                            <div class="youtube-overlay" aria-label="Abrir vídeo no YouTube: ' + video.title + '">\
+                                <span class="gallery-play-btn">\
+                                    <i class="fab fa-youtube"></i>\
+                                </span>\
+                            </div>\
+                        </div>';
+                } else {
+                    mediaHTML = '\
+                        <div class="gallery-video-wrapper">\
+                            <video preload="none" poster="' + video.poster + '" playsinline controls>\
+                                <source src="' + video.src + '" type="video/mp4">\
+                                Seu navegador não suporta a tag de vídeo.\
+                            </video>\
+                            <button type="button" class="gallery-overlay" aria-label="Reproduzir vídeo: ' + video.title + '">\
+                                <span class="gallery-play-btn">\
+                                    <i class="fas fa-play"></i>\
+                                </span>\
+                            </button>\
+                            <p class="gallery-video-error" hidden>\
+                                <i class="fas fa-triangle-exclamation"></i> Não foi possível carregar este vídeo.\
+                            </p>\
+                        </div>';
+                }
+
+                card.innerHTML = mediaHTML + '\
                     <div class="gallery-content">\
                         <span class="gallery-tag"><i class="fas ' + video.icon + '"></i> ' + video.tag + '</span>\
                         <h3>' + video.title + '</h3>\
@@ -379,17 +455,57 @@
 
             galleryGrid.querySelectorAll('.gallery-card').forEach(function (card) {
                 var video = card.querySelector('video');
-                var overlay = card.querySelector('.gallery-overlay');
+                var iframe = card.querySelector('iframe');
+                var overlay = card.querySelector('.gallery-overlay, .youtube-overlay');
                 var avisoErro = card.querySelector('.gallery-video-error');
 
-                if (!video) return;
+                // Para vídeos locais
+                if (video) {
+                    // Vídeo ausente no servidor: mostra aviso em vez de caixa preta
+                    video.addEventListener('error', function () {
+                        card.classList.add('is-error');
+                        if (avisoErro) avisoErro.hidden = false;
+                        if (overlay) overlay.hidden = true;
+                    });
 
-                // Vídeo ausente no servidor: mostra aviso em vez de caixa preta
-                video.addEventListener('error', function () {
-                    card.classList.add('is-error');
-                    if (avisoErro) avisoErro.hidden = false;
-                    overlay.hidden = true;
-                });
+                    // Clique no overlay → reproduz/pausa
+                    if (overlay) {
+                        overlay.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            if (video.paused) {
+                                pausarTodosExceto(video);
+                                video.play().catch(function () {
+                                    overlay.hidden = false;
+                                });
+                                galleryVideosPlaying.push(video);
+                            } else {
+                                video.pause();
+                            }
+                        });
+                    }
+
+                    // Atualiza overlay ao pausar/tocar
+                    video.addEventListener('play', function () {
+                        if (overlay) overlay.hidden = true;
+                    });
+                    video.addEventListener('pause', function () {
+                        if (overlay) overlay.hidden = false;
+                    });
+                    video.addEventListener('ended', function () {
+                        if (overlay) overlay.hidden = false;
+                    });
+                }
+
+                // Para YouTube: clique no overlay abre no YouTube
+                if (iframe && overlay) {
+                    overlay.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        window.open('https://www.youtube.com/watch?v=2AZnrOvX0qg', '_blank');
+                    });
+                }
+            });
+        }
 
                 // Reflecte o estado real do player na interface
                 function atualizarEstado() {

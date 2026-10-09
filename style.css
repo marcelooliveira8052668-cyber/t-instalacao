@@ -752,7 +752,7 @@ h1, h2, h3 {
 .gallery-video-wrapper {
     position: relative;
     width: 100%;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 9 / 16;
     background: #000;
     overflow: hidden;
 }
@@ -771,16 +771,70 @@ h1, h2, h3 {
 .gallery-overlay {
     position: absolute;
     inset: 0;
+    width: 100%;
+    border: none;
+    padding: 24px;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
     background: linear-gradient(180deg, transparent 40%, rgba(11, 31, 54, 0.85) 100%);
     display: flex;
     align-items: flex-end;
-    padding: 24px;
+    justify-content: center;
     opacity: 0;
     transition: opacity 0.3s ease;
 }
 
 .gallery-card:hover .gallery-overlay {
     opacity: 1;
+}
+
+/* Vídeo em reprodução: some com o overlay para não cobrir o player */
+.gallery-card.is-playing .gallery-overlay {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Sem hover (celular/tablet): o botão precisa ficar sempre visível */
+@media (hover: none) {
+    .gallery-overlay {
+        opacity: 1;
+    }
+
+    .gallery-card .gallery-play-btn {
+        transform: translateY(0) scale(1);
+    }
+
+    .gallery-card:hover .gallery-video-wrapper video {
+        transform: none;
+    }
+}
+
+/* Aviso quando o arquivo de vídeo não está no servidor */
+.gallery-video-error {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-direction: column;
+    margin: 0;
+    padding: 16px;
+    text-align: center;
+    background: var(--navy);
+    color: #fff;
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
+
+/* O atributo hidden precisa vencer o display:flex acima */
+.gallery-video-error[hidden] {
+    display: none;
+}
+
+.gallery-card.is-error .gallery-video-wrapper video {
+    display: none;
 }
 
 .gallery-play-btn {
@@ -806,6 +860,57 @@ h1, h2, h3 {
 .gallery-play-btn:hover {
     background: var(--green-dark);
     box-shadow: 0 12px 32px rgba(37, 211, 102, 0.5);
+}
+
+/* YouTube wrapper */
+.youtube-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    border-radius: 12px 12px 0 0;
+    overflow: hidden;
+}
+
+.youtube-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 12px 12px 0 0;
+}
+
+.youtube-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, transparent 40%, rgba(11, 31, 54, 0.85) 100%);
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.youtube-overlay:hover {
+    background: linear-gradient(180deg, transparent 30%, rgba(255, 0, 0, 0.25) 100%);
+}
+
+.youtube-overlay .gallery-play-btn {
+    background: #ff0000;
+    box-shadow: 0 8px 24px rgba(255, 0, 0, 0.4);
+    transform: translateY(20px) scale(0.9);
+}
+
+.youtube-wrapper:hover .gallery-play-btn {
+    transform: translateY(0) scale(1);
+}
+
+.youtube-overlay .gallery-play-btn:hover {
+    background: #cc0000;
+    box-shadow: 0 12px 32px rgba(255, 0, 0, 0.5);
+}
+
+.youtube-overlay .gallery-play-btn i {
+    font-size: 1.8rem;
 }
 
 .gallery-content {
@@ -870,6 +975,154 @@ h1, h2, h3 {
 }
 
 /* ==========================================================
+   SEÇÃO DE DICA (vídeo de terceiro via embed do YouTube)
+   ========================================================== */
+.dica-section {
+    background: #fff;
+    padding: 80px 0;
+}
+
+.dica-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: 0;
+    align-items: stretch;
+    margin-top: 44px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+}
+
+.dica-video-box {
+    position: relative;
+    background: #000;
+    aspect-ratio: 16 / 9;
+}
+
+.dica-video-box iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* Fachada clicável: carrega o player só quando o visitante pede */
+.dica-play-btn {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    background: #000;
+    overflow: hidden;
+}
+
+.dica-play-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.75;
+    transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dica-play-btn:hover img,
+.dica-play-btn:focus-visible img {
+    opacity: 0.95;
+    transform: scale(1.04);
+}
+
+.dica-play-btn:focus-visible {
+    outline: 3px solid var(--blue);
+    outline-offset: -3px;
+}
+
+.dica-play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: rgba(220, 0, 0, 0.92);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+}
+
+.dica-play-btn:hover .dica-play-icon {
+    background: #ff0000;
+    transform: translate(-50%, -50%) scale(1.08);
+}
+
+.dica-info {
+    padding: 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+}
+
+.dica-info h3 {
+    font-size: 1.3rem;
+    line-height: 1.35;
+    color: var(--navy);
+}
+
+.dica-credit {
+    font-size: 0.82rem;
+    color: var(--text-light);
+    line-height: 1.6;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+}
+
+.dica-credit i {
+    color: #cc0000;
+    margin-top: 3px;
+}
+
+.dica-cta {
+    font-size: 0.9rem;
+    color: var(--text);
+    line-height: 1.6;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.dica-cta i {
+    color: var(--green);
+    margin-top: 3px;
+}
+
+.dica-cta a {
+    color: var(--blue);
+    font-weight: 600;
+}
+
+@media (max-width: 900px) {
+    .dica-card {
+        grid-template-columns: 1fr;
+    }
+
+    .dica-info {
+        padding: 28px;
+    }
+}
+
+/* ==========================================================
    SEÇÃO DE CONTATO
    ========================================================== */
 .contact-section {
@@ -918,6 +1171,11 @@ h1, h2, h3 {
 
 .qrcode-container {
     margin: 0 auto 16px;
+    /* Reserva o espaço do QR mesmo antes do JS gerar, evitando "pulo" no layout */
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .qrcode-img {
@@ -925,6 +1183,16 @@ h1, h2, h3 {
     height: 200px;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
+}
+
+/* QR code em SVG, gerado localmente pelo qrcode-lib.js */
+.qrcode-container > svg,
+.qr-code-wrapper > svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
 }
 
 .qrcode-caption {

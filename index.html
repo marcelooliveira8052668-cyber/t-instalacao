@@ -155,10 +155,10 @@
                 <div class="contact-info-card reveal">
                     <h3>Ou acesse direto pelo celular</h3>
                     <p>Escaneie o QR code para abrir o site no seu telefone</p>
-                    <div class="qrcode-container">
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://marcelooliveira8052668-cyber.github.io/t-instalacao/" alt="QR Code para acessar o site ATM-Sistemas" class="qrcode-img">
+                    <div class="qrcode-container" id="qrcodeBox">
+                        <!-- QR code gerado localmente em qrcode-lib.js (sem depender de API externa) -->
                     </div>
-                    <p class="qrcode-caption">marcelooliveira8052668-cyber.github.io/t-instalacao/</p>
+                    <p class="qrcode-caption" id="qrcodeCaption"></p>
                 </div>
             </div>
 
@@ -211,13 +211,16 @@
             </button>
             <h3 id="qrModalTitle">Compartilhar Site</h3>
             <p class="modal-subtitle">Escaneie com a câmera do celular do técnico</p>
-            <div class="qr-code-wrapper">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=https://marcelooliveira8052668-cyber.github.io/t-instalacao/" alt="QR Code para acessar o site ATM-Sistemas" class="qr-code-img">
+            <div class="qr-code-wrapper" id="qrcodeModalBox">
+                <!-- QR code gerado localmente em qrcode-lib.js (sem depender de API externa) -->
             </div>
-            <p class="qr-url">marcelooliveira8052668-cyber.github.io/t-instalacao/</p>
+            <p class="qr-url" id="qrModalUrl"></p>
             <div class="modal-actions">
                 <button class="btn btn-outline modal-copy-btn" id="copyUrlBtn">
                     <i class="fas fa-copy"></i> Copiar Link
+                </button>
+                <button class="btn btn-primary modal-download-btn" id="downloadQrBtn">
+                    <i class="fas fa-download"></i> Baixar PNG
                 </button>
                 <button class="btn btn-whatsapp modal-share-btn" id="nativeShareBtn">
                     <i class="fas fa-share-alt"></i> Compartilhar
@@ -227,8 +230,13 @@
     </div>
 
     <!-- ==========================================================
-       SCRIPTS (menu mobile, formulário WhatsApp, animações)
-       ========================================================== -->
+         SCRIPTS (menu mobile, player de vídeo, QR code, animações)
+         ========================================================== -->
+
+    <!-- Gerador de QR code local (qrcode-lib.js): o QR funciona mesmo
+         se a internet cair ou o servidor de terceiros sair do ar -->
+    <script src="qrcode-lib.js"></script>
+
     <script>
         // ---- Menu mobile ----
         const menuToggle = document.getElementById('menuToggle');
@@ -306,10 +314,10 @@
                 icon: 'fa-warehouse'
             },
             {
-                src: 'cameras.mp4',
+                src: 'https://www.w3schools.com/html/mov_bbb.mp4',
                 poster: 'foto1.jpg',
                 title: 'Instalação de Câmeras',
-                desc: 'Sistema de monitoramento HD com acesso remoto pelo celular.',
+                desc: 'Sistema de monitoramento HD com acesso remoto pelo celular. (Vídeo de teste)',
                 tag: 'Monitoramento',
                 icon: 'fa-video'
             },
@@ -331,15 +339,18 @@
                 card.style.transitionDelay = (index * 100) + 'ms';
                 card.innerHTML = '\
                     <div class="gallery-video-wrapper">\
-                        <video preload="metadata" poster="' + video.poster + '" playsinline>\
+                        <video preload="none" poster="' + video.poster + '" playsinline controls>\
                             <source src="' + video.src + '" type="video/mp4">\
                             Seu navegador não suporta a tag de vídeo.\
                         </video>\
-                        <div class="gallery-overlay">\
-                            <div class="gallery-play-btn" aria-label="Reproduzir vídeo">\
+                        <button type="button" class="gallery-overlay" aria-label="Reproduzir vídeo: ' + video.title + '">\
+                            <span class="gallery-play-btn">\
                                 <i class="fas fa-play"></i>\
-                            </div>\
-                        </div>\
+                            </span>\
+                        </button>\
+                        <p class="gallery-video-error" hidden>\
+                            <i class="fas fa-triangle-exclamation"></i> Não foi possível carregar este vídeo.\
+                        </p>\
                     </div>\
                     <div class="gallery-content">\
                         <span class="gallery-tag"><i class="fas ' + video.icon + '"></i> ' + video.tag + '</span>\
@@ -352,6 +363,80 @@
                     </div>';
                 galleryGrid.appendChild(card);
             });
+
+            // ---- Player da galeria: tocar/pausar, um vídeo por vez ----
+            var galleryVideosPlaying = [];
+
+            function pausarTodosExceto(video) {
+                galleryVideosPlaying = galleryVideosPlaying.filter(function (outro) {
+                    if (outro !== video) {
+                        outro.pause();
+                        return false;
+                    }
+                    return true;
+                });
+            }
+
+            galleryGrid.querySelectorAll('.gallery-card').forEach(function (card) {
+                var video = card.querySelector('video');
+                var overlay = card.querySelector('.gallery-overlay');
+                var avisoErro = card.querySelector('.gallery-video-error');
+
+                if (!video) return;
+
+                // Vídeo ausente no servidor: mostra aviso em vez de caixa preta
+                video.addEventListener('error', function () {
+                    card.classList.add('is-error');
+                    if (avisoErro) avisoErro.hidden = false;
+                    overlay.hidden = true;
+                });
+
+                // Reflecte o estado real do player na interface
+                function atualizarEstado() {
+                    var tocando = !video.paused && !video.ended;
+                    card.classList.toggle('is-playing', tocando);
+                    overlay.setAttribute('aria-label',
+                        (tocando ? 'Pausar vídeo: ' : 'Reproduzir vídeo: ') + videoTitle(video));
+                }
+
+                video.addEventListener('play', function () {
+                    pausarTodosExceto(video);
+                    galleryVideosPlaying.push(video);
+                    atualizarEstado();
+                });
+
+                ['pause', 'ended'].forEach(function (evt) {
+                    video.addEventListener(evt, function () {
+                        galleryVideosPlaying = galleryVideosPlaying.filter(function (v) {
+                            return v !== video;
+                        });
+                        atualizarEstado();
+                    });
+                });
+
+                // Clique no botão verde dá play (ou pausa)
+                overlay.addEventListener('click', function () {
+                    if (video.paused || video.ended) {
+                        video.play();
+                    } else {
+                        video.pause();
+                    }
+                });
+
+                // Teclado: o overlay é um <button>, então já responde a Enter/Espaço
+                overlay.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        overlay.click();
+                    }
+                });
+            });
+
+            function videoTitle(video) {
+                var card = video.closest('.gallery-card');
+                var h3 = card && card.querySelector('h3');
+                return h3 ? h3.textContent : 'demonstração';
+            }
         }
 
         // ---- Modal QR Code Compartilhar ----
@@ -360,7 +445,78 @@
         const qrModalClose = document.getElementById('qrModalClose');
         const copyUrlBtn = document.getElementById('copyUrlBtn');
         const nativeShareBtn = document.getElementById('nativeShareBtn');
-        const siteUrl = 'https://marcelooliveira8052668-cyber.github.io/t-instalacao/';
+
+        // Endereço do site em UM lugar só. Se o site mudar de hospedagem,
+        // o QR code se ajusta sozinho (usa o endereço que o visitante abriu).
+        const SITE_URL_PADRAO = 'https://marcelooliveira8052668-cyber.github.io/t-instalacao/';
+        const siteUrl = (location.protocol === 'http:' || location.protocol === 'https:')
+            ? location.origin + location.pathname.replace(/[^/]*$/, '')
+            : SITE_URL_PADRAO;
+
+        // ---- QR code gerado no próprio navegador (sem API externa) ----
+        const qrcodeBox = document.getElementById('qrcodeBox');
+        const qrcodeModalBox = document.getElementById('qrcodeModalBox');
+        const qrcodeCaption = document.getElementById('qrcodeCaption');
+        const qrModalUrl = document.getElementById('qrModalUrl');
+        const downloadQrBtn = document.getElementById('downloadQrBtn');
+
+        function gerarQRCode(destino, tamanho) {
+            // Nível M: aguenta sujeira, logo e leve desbotamento na impressão
+            const qr = qrcode(0, 'M');
+            qr.addData(siteUrl);
+            qr.make();
+            return qr.createSvgTag({ cellSize: tamanho, margin: tamanho * 2, scalable: true });
+        }
+
+        function pintarQRCode() {
+            if (typeof qrcode !== 'function') return;
+
+            const svgContato = gerarQRCode(qrcodeBox, 5);
+            if (qrcodeBox) qrcodeBox.innerHTML = svgContato;
+            if (qrcodeModalBox) qrcodeModalBox.innerHTML = gerarQRCode(qrcodeModalBox, 7);
+
+            const semProtocolo = siteUrl.replace(/^https?:\/\//, '').replace(/\/$/, '');
+            if (qrcodeCaption) qrcodeCaption.textContent = semProtocolo;
+            if (qrModalUrl) qrModalUrl.textContent = semProtocolo;
+        }
+
+        pintarQRCode();
+
+        // ---- Baixar o QR code em PNG (para imprimir em cartão/panfleto) ----
+        if (downloadQrBtn) {
+            downloadQrBtn.addEventListener('click', function () {
+                if (typeof qrcode !== 'function') return;
+
+                const CELULA = 10;      // pixels por módulo
+                const MARGEM = 4;       // margem branca (exigida pela leitura)
+                const modulos = qrcode(0, 'M');
+                modulos.addData(siteUrl);
+                modulos.make();
+
+                const total = modulos.getModuleCount();
+                const tamanho = (total + MARGEM * 2) * CELULA;
+                const canvas = document.createElement('canvas');
+                canvas.width = tamanho;
+                canvas.height = tamanho;
+
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, tamanho, tamanho);
+                ctx.fillStyle = '#000000';
+                for (let linha = 0; linha < total; linha++) {
+                    for (let coluna = 0; coluna < total; coluna++) {
+                        if (modulos.isDark(linha, coluna)) {
+                            ctx.fillRect((coluna + MARGEM) * CELULA, (linha + MARGEM) * CELULA, CELULA, CELULA);
+                        }
+                    }
+                }
+
+                const link = document.createElement('a');
+                link.download = 'qrcode-atm-sistemas.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
 
         function openModal() {
             qrModal.classList.add('active');

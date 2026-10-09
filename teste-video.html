@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Vídeo</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; max-width: 800px; margin: 0 auto; }
+        video { width: 100%; max-width: 640px; border-radius: 8px; }
+        .status { padding: 10px; margin: 10px 0; border-radius: 4px; }
+        .ok { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .err { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Teste de Vídeo Local</h1>
+    <div id="status"></div>
+    
+    <h2>Vídeo do Portão (portao.mp4)</h2>
+    <video id="videoTest" controls preload="metadata" poster="foto2.jpg">
+        <source src="portao.mp4" type="video/mp4">
+        Seu navegador não suporta vídeo.
+    </video>
+    
+    <h2>Outros vídeos:</h2>
+    <ul>
+        <li><a href="cameras.mp4" target="_blank">cameras.mp4</a></li>
+        <li><a href="cerca_alarme.mp4" target="_blank">cerca_alarme.mp4</a></li>
+        <li><a href="video1.mp4" target="_blank">video1.mp4</a></li>
+    </ul>
+
+    <script>
+        const video = document.getElementById('videoTest');
+        const status = document.getElementById('status');
+        
+        video.addEventListener('loadeddata', () => {
+            status.innerHTML = '<div class="status ok">✅ Vídeo carregou e pode reproduzir!</div>';
+        });
+        
+        video.addEventListener('error', (e) => {
+            status.innerHTML = '<div class="status err">❌ Erro ao carregar vídeo: ' + video.error?.message + ' (code: ' + video.error?.code + ')</div>';
+            console.error('Video error:', video.error);
+        });
+        
+        video.addEventListener('waiting', () => {
+            status.innerHTML = '<div class="status">⏳ Carregando vídeo...</div>';
+        });
+        
+        // Testar se arquivo existe
+        fetch('portao.mp4', { method: 'HEAD' })
+            .then(r => {
+                if (r.ok) {
+                    console.log('Arquivo portao.mp4 existe (HEAD 200)');
+                } else {
+                    status.innerHTML = '<div class="status err">❌ Arquivo não encontrado no servidor (status: ' + r.status + ')</div>';
+                }
+            })
+            .catch(err => {
+                status.innerHTML = '<div class="status err">❌ Erro de rede ao buscar arquivo: ' + err.message + '</div>';
+            });
+    </script>
+</body>
+</html>

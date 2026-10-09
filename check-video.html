@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnóstico de Vídeo</title>
+    <style>
+        body { font-family: monospace; padding: 20px; max-width: 900px; margin: 0 auto; background: #1a1a2e; color: #eee; }
+        h1 { color: #00d4aa; }
+        .video-test { margin: 20px 0; padding: 15px; background: #16213e; border-radius: 8px; border: 1px solid #0f3460; }
+        video { width: 100%; max-width: 640px; background: #000; border-radius: 4px; }
+        .info { margin: 10px 0; padding: 10px; background: #0f3460; border-radius: 4px; white-space: pre-wrap; }
+        .ok { color: #00d4aa; }
+        .warn { color: #ffd700; }
+        .err { color: #ff4757; }
+        button { padding: 10px 20px; margin: 5px; background: #0f3460; color: #00d4aa; border: 1px solid #00d4aa; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #00d4aa; color: #1a1a2e; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Diagnóstico de Vídeos - ATM Sistemas</h1>
+    <p>Abra esta página via <strong>Live Server</strong> (http://127.0.0.1:5500/check-video.html)</p>
+
+    <div id="results"></div>
+
+    <script>
+        const videos = [
+            { file: 'portao.mp4', name: 'Portão', poster: 'foto2.jpg' },
+            { file: 'cameras.mp4', name: 'Câmeras', poster: 'foto1.jpg' },
+            { file: 'cerca_alarme.mp4', name: 'Cerca/Alarme', poster: 'foto1.jpg' },
+            { file: 'video1.mp4', name: 'Video1 (original)', poster: 'foto1.jpg' }
+        ];
+
+        const container = document.getElementById('results');
+
+        async function testVideo(v) {
+            const div = document.createElement('div');
+            div.className = 'video-test';
+            div.innerHTML = `<h2>${v.name} (${v.file})</h2><video id="vid-${v.file}" controls preload="metadata" poster="${v.poster}"><source src="${v.file}" type="video/mp4"></video><div class="info" id="info-${v.file}">Carregando...</div>`;
+            container.appendChild(div);
+
+            const video = div.querySelector('video');
+            const infoDiv = div.querySelector('.info');
+
+            video.addEventListener('loadedmetadata', () => {
+                let msg = `<span class="ok">✅ Metadata carregada</span>\n`;
+                msg += `Duração: ${video.duration.toFixed(1)}s\n`;
+                msg += `Resolução: ${video.videoWidth}x${video.videoHeight}\n`;
+                msg += `Tipo MIME: ${video.currentSrc ? 'OK' : 'Não detectado'}\n`;
+                
+                // Tentar reproduzir
+                video.play().then(() => {
+                    msg += `<span class="ok">▶ Play funcionou</span>`;
+                    video.pause();
+                }).catch(e => {
+                    msg += `<span class="err">❌ Play falhou: ${e.name} - ${e.message}</span>`;
+                });
+                
+                infoDiv.innerHTML = msg;
+            });
+
+            video.addEventListener('error', (e) => {
+                let msg = `<span class="err">❌ Erro no vídeo (code: ${video.error?.code})</span>\n`;
+                const codes = {
+                    1: 'MEDIA_ERR_ABORTED - Download abortado',
+                    2: 'MEDIA_ERR_NETWORK - Erro de rede',
+                    3: 'MEDIA_ERR_DECODE - Erro de decodificação (CODEC INCOMPATÍVEL!)',
+                    4: 'MEDIA_ERR_SRC_NOT_SUPPORTED - Formato não suportado'
+                };
+                msg += codes[video.error?.code] || 'Erro desconhecido';
+                infoDiv.innerHTML = msg;
+            });
+
+            // Testar se arquivo existe via fetch
+            try {
+                const resp = await fetch(v.file, { method: 'HEAD' });
+                if (!resp.ok) {
+                    infoDiv.innerHTML = `<span class="err">❌ Arquivo não encontrado no servidor (HTTP ${resp.status})</span>`;
+                } else {
+                    const contentType = resp.headers.get('content-type');
+                    const contentLength = resp.headers.get('content-length');
+                    infoDiv.innerHTML = `<span class="ok">✅ Arquivo existe no servidor</span>\nContent-Type: ${contentType}\nTamanho: ${(contentLength/1024/1024).toFixed(1)} MB`;
+                }
+            } catch (err) {
+                infoDiv.innerHTML = `<span class="err">❌ Erro de rede: ${err.message}</span>`;
+            }
+        }
+
+        videos.forEach(testVideo);
+    </script>
+</body>
+</html>
